@@ -19,6 +19,7 @@ IMAGE_REGISTRY ?= "quay.io"
 REGISTRY_NAMESPACE ?= ""
 IMAGE_TAG ?= "latest"
 FULL_IMAGE_NAME ?= "${IMAGE_REGISTRY}/${REGISTRY_NAMESPACE}/oslat:${IMAGE_TAG}"
+OSLAT_BIN ?= /usr/bin/oslat_test
 
 all: oslat
 
@@ -33,6 +34,11 @@ install: oslat
 
 cscope:
 	cscope -bq *.c
+
+generate:
+	sed 's|REPLACE_OSLAT_BIN|$(OSLAT_BIN)|g' < Dockerfile.in > Dockerfile
+	sed 's|REPLACE_OSLAT_BIN|$(OSLAT_BIN)|g' < run-oslat.sh.in > run-oslat.sh
+	chmod 0755 run-oslat.sh
 
 build-container:
 	@if [ -z "$(REGISTRY_NAMESPACE)" ]; then\

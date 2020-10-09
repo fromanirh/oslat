@@ -20,5 +20,5 @@ dnf clean all
 
 # renamed to be backward compatible with the previous entry point
 COPY run-oslat.sh /usr/bin/oslat
-COPY --from=builder /oslat/oslat /usr/bin/oslat_test
+COPY --from=builder /oslat/oslat REPLACE_OSLAT_BIN
 
